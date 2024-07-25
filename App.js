@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Activities from './screens/Activities';
+import Diet from './screens/Diet';
+import AddAnActivity from './screens/AddAnActivity';
+import AddDietEntry from './screens/AddDietEntry';
+import Edit from './screens/Edit';
+import Settings from './screens/Settings';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function MainTabs() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Activities" component={Activities} />
+      <Tab.Screen name="Diet" component={Diet} />
+      <Tab.Screen name="Settings" component={Settings} />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Main" component={MainTabs} />
+        <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
+        <Stack.Screen name="AddADietEntry" component={AddDietEntry} />
+        <Stack.Screen name="EditEntry" component={Edit} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
