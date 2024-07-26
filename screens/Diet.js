@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestoreHelper';
 import { db } from '../firebase/config';
 import ItemsList from '../components/ItemsList';
 
