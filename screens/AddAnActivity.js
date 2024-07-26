@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db } from '../firebase/firebaseSetup';
 
 export default function AddAnActivity() {
   const navigation = useNavigation();

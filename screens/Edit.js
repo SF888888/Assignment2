@@ -3,8 +3,8 @@ import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestoreHelper';
-import { db } from '../firebase/config';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebaseSetup';
 
 export default function EditEntry() {
   const navigation = useNavigation();

@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db } from '../firebase/firebaseSetup';
 
 export default function AddADietEntry() {
   const navigation = useNavigation();
