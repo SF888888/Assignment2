@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-const ThemeContext = createContext();
+const ThemeContext = createContext(null);
 
 const colorSchemes = {
   scheme1: {
