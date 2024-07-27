@@ -8,6 +8,7 @@ import AddAnActivity from './screens/AddAnActivity';
 import AddDietEntry from './screens/AddDietEntry';
 import Edit from './screens/Edit';
 import Settings from './screens/Settings';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,13 +25,15 @@ function MainTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainTabs} />
-        <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
-        <Stack.Screen name="AddADietEntry" component={AddDietEntry} />
-        <Stack.Screen name="EditEntry" component={Edit} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Main" component={MainTabs} />
+          <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
+          <Stack.Screen name="AddADietEntry" component={AddDietEntry} />
+          <Stack.Screen name="EditEntry" component={Edit} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

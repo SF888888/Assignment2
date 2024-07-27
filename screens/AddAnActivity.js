@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,18 @@ export default function AddAnActivity() {
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // DropDownPicker states
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([
+    { label: 'Walking', value: 'Walking' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Weights', value: 'Weights' },
+    { label: 'Yoga', value: 'Yoga' },
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Hiking', value: 'Hiking' },
+  ]);
 
   const handleSave = async () => {
     if (!activityType || !duration || isNaN(duration)) {
@@ -31,25 +43,31 @@ export default function AddAnActivity() {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Activity Type</Text>
       <DropDownPicker
-        items={[
-          { label: 'Walking', value: 'Walking' },
-          { label: 'Running', value: 'Running' },
-          { label: 'Swimming', value: 'Swimming' },
-          { label: 'Weights', value: 'Weights' },
-          { label: 'Yoga', value: 'Yoga' },
-          { label: 'Cycling', value: 'Cycling' },
-          { label: 'Hiking', value: 'Hiking' },
-        ]}
-        defaultValue={activityType}
-        onChangeItem={item => setActivityType(item.value)}
+        open={open}
+        value={activityType}
+        items={items}
+        setOpen={setOpen}
+        setValue={setActivityType}
+        setItems={setItems}
+        placeholder="Select an activity type"
+        containerStyle={styles.dropdown}
       />
       <Text>Duration</Text>
-      <TextInput value={duration} onChangeText={setDuration} keyboardType="numeric" />
+      <TextInput
+        value={duration}
+        onChangeText={setDuration}
+        keyboardType="numeric"
+        style={styles.input}
+      />
       <Text>Date</Text>
-      <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} />
+      <TextInput
+        value={date.toLocaleDateString()}
+        onFocus={() => setShowDatePicker(true)}
+        style={styles.input}
+      />
       {showDatePicker && (
         <DateTimePicker
           value={date}
@@ -67,3 +85,19 @@ export default function AddAnActivity() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  dropdown: {
+    marginBottom: 16,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 8,
+    marginBottom: 16,
+  },
+});
