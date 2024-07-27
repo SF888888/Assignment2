@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
 
