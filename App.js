@@ -7,7 +7,7 @@ import Diet from './screens/Diet';
 import AddAnActivity from './screens/AddAnActivity';
 import AddDietEntry from './screens/AddDietEntry';
 import Edit from './screens/Edit';
-import Settings from './screens/Settings';
+//import Settings from './screens/Settings';
 import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
 
 

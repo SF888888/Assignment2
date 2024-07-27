@@ -1,7 +1,5 @@
 import React, { createContext, useState } from 'react';
 
-const ThemeContext = createContext(null);
-
 const colorSchemes = {
   scheme1: {
     background: '#e3f2fd',
@@ -14,6 +12,7 @@ const colorSchemes = {
     navigationBar: '#fbc02d',
   },
 };
+const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(colorSchemes.scheme1);

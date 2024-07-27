@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -20,6 +21,7 @@ export default function EditEntry() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isSpecial, setIsSpecial] = useState(item.special);
   const { theme } = useContext(ThemeContext);
+  const [isImportant, setIsImportant] = useState(false);
 
   const handleSave = async () => {
     if ((!activityType && !description) || (!duration && !calories) || isNaN(duration) || isNaN(calories)) {
@@ -33,9 +35,11 @@ export default function EditEntry() {
       calories: parseInt(calories, 10),
       date: date.toISOString(),
       special: isSpecial,
+      important: isImportant,
     };
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await updateDoc(doc(db, collectionName, item.id), updatedEntry);
+    Alert.alert('Are you sure you want to save these changes?');
     navigation.goBack();
   };
 
@@ -46,7 +50,7 @@ export default function EditEntry() {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
@@ -85,7 +89,29 @@ export default function EditEntry() {
         <Button title="Delete" onPress={handleDelete} />
         <Button title="Cancel" onPress={() => navigation.goBack()} />
       </View>
+      <View style={styles.checkboxContainer}>
+        <CheckBox
+          value={isImportant}
+          onValueChange={setIsImportant}
+        />
+        <Text style={styles.checkboxLabel}>This item is marked special, select the checkbox if you would like to approve it</Text>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  checkboxLabel: {
+    marginLeft: 8,
+  },
+});
+
 
