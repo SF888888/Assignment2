@@ -27,7 +27,7 @@ export default function Diet() {
   return (
     <View>
       <Button title="Add Diet Entry" onPress={() => navigation.navigate('AddADietEntry')} />
-      <ItemsList data={dietEntries} />
+      <ItemsList data={dietEntries} itemType="diet" />
     </View>
   );
 }

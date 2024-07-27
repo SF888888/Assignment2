@@ -29,7 +29,7 @@ export default function AddADietEntry() {
     };
 
     await addDoc(collection(db, 'Diet'), dietEntry);
-    navigation.goBack();
+    navigation.navigate('Diet');
   };
 
   return (

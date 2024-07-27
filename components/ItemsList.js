@@ -1,16 +1,23 @@
+// ItemsList.js
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function ItemsList({ data }) {
+export default function ItemsList({ data, itemType }) {
   const navigation = useNavigation();
+
+  const handlePress = (item) => {
+    navigation.navigate('Edit', { item, itemType });
+  };
+
   const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={() => handlePress(item)}>
       <Text style={styles.itemText}>{item.type || item.description}</Text>
       <Text style={styles.itemText}>{item.duration ? `${item.duration} min` : `${item.calories} kcal`}</Text>
       <Text style={styles.itemText}>{new Date(item.date).toLocaleDateString()}</Text>
-    </View>
+    </TouchableOpacity>
   );
+
   return (
     <FlatList
       data={data}

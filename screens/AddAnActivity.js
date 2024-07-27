@@ -16,7 +16,6 @@ export default function AddAnActivity() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { theme } = useContext(ThemeContext);
 
-  // DropDownPicker states
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
     { label: 'Walking', value: 'Walking' },
@@ -42,7 +41,7 @@ export default function AddAnActivity() {
     };
 
     await addDoc(collection(db, 'Activities'), activity);
-    navigation.goBack();
+    navigation.navigate('Activities');
   };
 
   return (

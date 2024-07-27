@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -11,7 +11,7 @@ import Button from '../components/Button';
 export default function EditEntry() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { item } = route.params;
+  const { item, itemType } = route.params;
   const [activityType, setActivityType] = useState(item.type || '');
   const [description, setDescription] = useState(item.description || '');
   const [duration, setDuration] = useState(item.duration?.toString() || '');
@@ -26,7 +26,6 @@ export default function EditEntry() {
       Alert.alert('Invalid input', 'Please enter valid data.');
       return;
     }
-
     const updatedEntry = {
       type: activityType,
       description,
@@ -35,13 +34,14 @@ export default function EditEntry() {
       date: date.toISOString(),
       special: isSpecial,
     };
-
-    await updateDoc(doc(db, 'Activities', item.id), updatedEntry);
+    const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
+    await updateDoc(doc(db, collectionName, item.id), updatedEntry);
     navigation.goBack();
   };
 
   const handleDelete = async () => {
-    await deleteDoc(doc(db, 'Activities', item.id));
+    const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
+    await deleteDoc(doc(db, collectionName, item.id));
     navigation.goBack();
   };
 
@@ -88,3 +88,4 @@ export default function EditEntry() {
     </View>
   );
 }
+
