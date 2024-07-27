@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
+import ThemeContext from '../contexts/ThemeContext';
 
 export default function AddAnActivity() {
   const navigation = useNavigation();
@@ -12,6 +13,7 @@ export default function AddAnActivity() {
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   // DropDownPicker states
   const [open, setOpen] = useState(false);

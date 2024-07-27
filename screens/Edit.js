@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
+import ThemeContext from '../contexts/ThemeContext';
 
 export default function EditEntry() {
   const navigation = useNavigation();
@@ -17,6 +18,7 @@ export default function EditEntry() {
   const [date, setDate] = useState(new Date(item.date));
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isSpecial, setIsSpecial] = useState(item.special);
+  const { theme } = useContext(ThemeContext);
 
   const handleSave = async () => {
     if ((!activityType && !description) || (!duration && !calories) || isNaN(duration) || isNaN(calories)) {

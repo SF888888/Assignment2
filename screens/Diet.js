@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ItemsList from '../components/ItemsList';
+import ThemeContext from '../contexts/ThemeContext';
 
 export default function Diet() {
   const navigation = useNavigation();
   const [dietEntries, setDietEntries] = useState([]);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchDietEntries = async () => {

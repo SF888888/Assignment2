@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
+import ThemeContext from '../contexts/ThemeContext';
 
 export default function AddADietEntry() {
   const navigation = useNavigation();
@@ -11,6 +12,7 @@ export default function AddADietEntry() {
   const [calories, setCalories] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleSave = async () => {
     if (!description || !calories || isNaN(calories)) {

@@ -1,14 +1,24 @@
 import React, { useContext } from 'react';
-import { View, Text, Button } from 'react-native';
-import { ThemeContext } from '../contexts/ThemeContext';
+import { View, Button, StyleSheet } from 'react-native';
+import ThemeContext from '../contexts/ThemeContext';
 
-export default function Settings() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+const Settings = () => {
+  const { switchToScheme1, switchToScheme2 } = useContext(ThemeContext);
 
   return (
-    <View style={{ backgroundColor: theme.background, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ color: theme.text }}>Current Theme: {theme === theme.light ? 'Light' : 'Dark'}</Text>
-      <Button title="Toggle Theme" onPress={toggleTheme} />
+    <View style={styles.container}>
+      <Button title="Switch to Calm Scheme" onPress={switchToScheme1} />
+      <Button title="Switch to Warm Scheme" onPress={switchToScheme2} />
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default Settings;
