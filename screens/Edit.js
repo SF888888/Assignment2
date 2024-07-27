@@ -6,6 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ThemeContext from '../contexts/ThemeContext';
+import Button from '../components/Button';
 
 export default function EditEntry() {
   const navigation = useNavigation();

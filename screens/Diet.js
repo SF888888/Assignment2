@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ItemsList from '../components/ItemsList';
 import ThemeContext from '../contexts/ThemeContext';
+import Button from '../components/Button';
 
 export default function Diet() {
   const navigation = useNavigation();

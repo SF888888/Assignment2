@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ThemeContext from '../contexts/ThemeContext';
+import Button from '../components/Button';
 
 export default function AddADietEntry() {
   const navigation = useNavigation();

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import ThemeContext from '../contexts/ThemeContext';
+import Button from '../components/Button';
 
 const Settings = () => {
   const { switchToScheme1, switchToScheme2 } = useContext(ThemeContext);

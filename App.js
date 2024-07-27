@@ -9,6 +9,7 @@ import AddDietEntry from './screens/AddDietEntry';
 import Edit from './screens/Edit';
 import Settings from './screens/Settings';
 import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
+import Button from '../components/Button';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
