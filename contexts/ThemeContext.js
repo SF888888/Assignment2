@@ -5,11 +5,15 @@ const colorSchemes = {
     background: '#e3f2fd',
     text: '#0d47a1',
     navigationBar: '#1976d2',
+    buttonBackground: '#6200ee',
+    buttonText: '#ffffff',
   },
   scheme2: {
     background: '#fffde7',
     text: '#f57f17',
     navigationBar: '#fbc02d',
+    buttonBackground: '#f57f17',
+    buttonText: '#000000',
   },
 };
 const ThemeContext = createContext(false);
@@ -31,5 +35,5 @@ const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-export {ThemeProvider}
+export {ThemeProvider};
 export default ThemeContext;

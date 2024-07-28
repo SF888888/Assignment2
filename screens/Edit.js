@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -8,8 +8,9 @@ import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function EditEntry() {
+export default function Edit() {
   const navigation = useNavigation();
   const route = useRoute();
   const { item, itemType } = route.params;
@@ -39,20 +40,20 @@ export default function EditEntry() {
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await updateDoc(doc(db, collectionName, item.id), updatedEntry);
     Alert.alert('Are you sure you want to save these changes?');
-    navigation.goBack();
+    navigation.navigate('ItemsList');
   };
 
   const handleDelete = async () => {
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await deleteDoc(doc(db, collectionName, item.id));
-    navigation.goBack();
+    navigation.navigate('ItemsList');
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-        <Icon name="delete" size={24} color="red" />
-      </TouchableOpacity>
+      <Button style={styles.deleteButton} onPress={handleDelete}>
+        <FontAwesome name = "trash" size={24} color="white" />
+      </Button>
       <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
