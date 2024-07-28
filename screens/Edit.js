@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import Checkbox from 'expo-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -19,7 +19,7 @@ export default function EditEntry() {
   const [calories, setCalories] = useState(item.calories?.toString() || '');
   const [date, setDate] = useState(new Date(item.date));
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [isSpecial, setIsSpecial] = useState(item.special);
+
   const { theme } = useContext(ThemeContext);
   const [isImportant, setIsImportant] = useState(false);
 
@@ -34,7 +34,6 @@ export default function EditEntry() {
       duration: parseInt(duration, 10),
       calories: parseInt(calories, 10),
       date: date.toISOString(),
-      special: isSpecial,
       important: isImportant,
     };
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
@@ -51,6 +50,9 @@ export default function EditEntry() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+        <Icon name="delete" size={24} color="red" />
+      </TouchableOpacity>
       <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
@@ -89,8 +91,8 @@ export default function EditEntry() {
         <Button title="Delete" onPress={handleDelete} />
         <Button title="Cancel" onPress={() => navigation.goBack()} />
       </View>
-      <View style={styles.checkboxContainer}>
-        <CheckBox
+      <View style={styles.checkbox}>
+        <Checkbox style={styles.checkbox}
           value={isImportant}
           onValueChange={setIsImportant}
         />
@@ -104,10 +106,13 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
-  checkboxContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-    alignItems: 'center',
+  checkbox: {
+    margin: 8,
+  },
+  deleteButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
   },
   checkboxLabel: {
     marginLeft: 8,

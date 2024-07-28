@@ -6,7 +6,7 @@ export default function ItemsList({ data, itemType, navigation }) {
   //const navigation = useNavigation();
 
   const handlePress = (item) => {
-    navigation.navigate('Edit');
+    navigation.navigate('Edit', { item, itemType });
   };
 
   const renderItem = ({ item }) => (

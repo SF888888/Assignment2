@@ -20,6 +20,7 @@ function MainTabs() {
       <Tab.Screen name="Activities" component={Activities} />
       <Tab.Screen name="Diet" component={Diet} />
       <Tab.Screen name="Settings" component={Settings} />
+      
     </Tab.Navigator>
   );
 }
@@ -43,7 +44,7 @@ function AppNavigator() {
         <Stack.Screen name="Main" component={MainTabs} />
         <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
         <Stack.Screen name="AddADietEntry" component={AddDietEntry} />
-        <Stack.Screen name="EditEntry" component={Edit} />
+        <Stack.Screen name="Edit" component={Edit} />
       </Stack.Navigator>
     </NavigationContainer>
   );
