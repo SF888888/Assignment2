@@ -12,9 +12,9 @@ const colorSchemes = {
     navigationBar: '#fbc02d',
   },
 };
-const ThemeContext = createContext(null);
+const ThemeContext = createContext(false);
 
-export const ThemeProvider = ({ children }) => {
+const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(colorSchemes.scheme1);
 
   const switchToScheme1 = () => {
@@ -31,4 +31,5 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
+export {ThemeProvider}
 export default ThemeContext;

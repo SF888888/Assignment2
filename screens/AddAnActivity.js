@@ -14,7 +14,7 @@ export default function AddAnActivity() {
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const { theme } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([

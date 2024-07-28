@@ -10,7 +10,7 @@ import Button from '../components/Button';
 export default function Activities() {
   const navigation = useNavigation();
   const [activities, setActivities] = useState([]);
-  const { theme } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchActivities = async () => {

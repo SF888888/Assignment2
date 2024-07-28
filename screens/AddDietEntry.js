@@ -13,7 +13,7 @@ export default function AddADietEntry() {
   const [calories, setCalories] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const { theme } = useContext(ThemeContext);
+  // const { theme } = useContext(ThemeContext);
 
   const handleSave = async () => {
     if (!description || !calories || isNaN(calories)) {
