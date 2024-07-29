@@ -4,6 +4,7 @@ const colorSchemes = {
   scheme1: {
     background: '#e3f2fd',
     text: '#0d47a1',
+    fontSize: 16,
     navigationBar: '#1976d2',
     buttonBackground: '#6200ee',
     buttonText: '#ffffff',
@@ -11,6 +12,7 @@ const colorSchemes = {
   scheme2: {
     background: '#fffde7',
     text: '#f57f17',
+    fontSize: 16,
     navigationBar: '#fbc02d',
     buttonBackground: '#f57f17',
     buttonText: '#000000',

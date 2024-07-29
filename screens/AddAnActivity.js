@@ -9,6 +9,7 @@ import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
 
 export default function AddAnActivity(props) {
+  const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const [activityType, setActivityType] = useState(null);
   const [duration, setDuration] = useState('');
@@ -50,7 +51,7 @@ export default function AddAnActivity(props) {
 
   return (
     <View style={styles.container}>
-      <Text>Activity Type</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Activity Type</Text>
       <DropDownPicker
         open={open}
         value={activityType}
@@ -61,14 +62,14 @@ export default function AddAnActivity(props) {
         placeholder="Select an activity type"
         containerStyle={styles.dropdown}
       />
-      <Text>Duration</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Duration</Text>
       <TextInput
         value={duration}
         onChangeText={setDuration}
         keyboardType="numeric"
         style={styles.input}
       />
-      <Text>Date</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Date</Text>
       <TextInput
         value={date.toLocaleDateString()}
         onFocus={() => setShowDatePicker(true)}
@@ -99,6 +100,9 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginBottom: 16,
+  },
+  label: {
+    paddingBottom: 12, 
   },
   input: {
     borderWidth: 1,

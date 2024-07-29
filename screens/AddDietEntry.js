@@ -8,6 +8,7 @@ import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
 
 export default function AddADietEntry() {
+  const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const [description, setDescription] = useState('');
   const [calories, setCalories] = useState('');
@@ -37,11 +38,11 @@ export default function AddADietEntry() {
 
   return (
     <View style={styles.container}>
-      <Text>Description</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Description</Text>
       <TextInput value={description} onChangeText={setDescription} style={styles.input}/>
-      <Text>Calories</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Calories</Text>
       <TextInput value={calories} onChangeText={setCalories} keyboardType="numeric" style={styles.input}/>
-      <Text>Date</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Date</Text>
       <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} />
       {showDatePicker && (
         <DateTimePicker
@@ -67,6 +68,9 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginBottom: 16,
+  },
+  label: {
+    paddingBottom: 12, 
   },
   input: {
     borderWidth: 1,

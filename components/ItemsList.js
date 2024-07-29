@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import ThemeContext from '../contexts/ThemeContext';
 
 export default function ItemsList({ data, itemType, navigation, flag }) {
+  const { theme } = useContext(ThemeContext);
   //const navigation = useNavigation();
   
   const handlePress = (item) => {
@@ -11,7 +13,7 @@ export default function ItemsList({ data, itemType, navigation, flag }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.itemContainer} onPress={() => handlePress(item)}>
-      <Text style={styles.itemText}>{item.type || item.description}</Text>
+      <Text style={[{ color: theme.text, fontSize: theme.fontSize }]}>{item.type || item.description}</Text>
       <Text style={styles.itemText}>{item.duration ? `${item.duration} min` : `${item.calories} kcal`}</Text>
       <Text style={styles.itemText}>{new Date(item.date).toLocaleDateString()}</Text>
     </TouchableOpacity>
