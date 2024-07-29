@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ThemeContext from '../contexts/ThemeContext';
@@ -14,6 +14,8 @@ export default function AddADietEntry() {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   // const { theme } = useContext(ThemeContext);
+  const route = useRoute();
+  const flag = route.params.flag;
 
   const handleSave = async () => {
     if (!description || !calories || isNaN(calories)) {
@@ -29,7 +31,8 @@ export default function AddADietEntry() {
     };
 
     await addDoc(collection(db, 'Diet'), dietEntry);
-    navigation.navigate('Diet');
+    const newFlag = flag + 1;
+    navigation.navigate('Diet', {newFlag});
   };
 
   return (

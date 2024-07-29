@@ -9,15 +9,18 @@ import AddDietEntry from './screens/AddDietEntry';
 import Edit from './screens/Edit';
 import Settings from './screens/Settings';
 import ThemeContext,{ ThemeProvider } from './contexts/ThemeContext';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 function MainTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Activities" component={Activities} />
+      <Tab.Screen name="Activities" component={Activities} 
+      />
       <Tab.Screen name="Diet" component={Diet} />
       <Tab.Screen name="Settings" component={Settings} />
       

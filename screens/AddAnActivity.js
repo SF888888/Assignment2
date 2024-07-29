@@ -2,18 +2,21 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
 
-export default function AddAnActivity() {
+export default function AddAnActivity(props) {
   const navigation = useNavigation();
   const [activityType, setActivityType] = useState(null);
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const route = useRoute();
+  const flag = route.params.flag;
+  console.log(route.params);
   // const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState(false);
@@ -41,7 +44,8 @@ export default function AddAnActivity() {
     };
 
     await addDoc(collection(db, 'Activities'), activity);
-    navigation.navigate('Activities');
+    const newFlag = flag + 1;
+    navigation.navigate('Activities', {newFlag});
   };
 
   return (

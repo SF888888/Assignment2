@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
-export default function ItemsList({ data, itemType, navigation }) {
+export default function ItemsList({ data, itemType, navigation, flag }) {
   //const navigation = useNavigation();
-
+  
   const handlePress = (item) => {
-    navigation.navigate('Edit', { item, itemType });
+    navigation.navigate('Edit', { item, itemType, flag});
   };
 
   const renderItem = ({ item }) => (

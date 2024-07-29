@@ -13,7 +13,7 @@ import { FontAwesome } from '@expo/vector-icons';
 export default function Edit(props) {
   //const navigation = useNavigation();
   const route = useRoute();
-  const { item, itemType } = route.params;
+  const { item, itemType, flag } = route.params;
   const [activityType, setActivityType] = useState(item.type || '');
   const [description, setDescription] = useState(item.description || '');
   const [duration, setDuration] = useState(item.duration?.toString() || '');
@@ -50,6 +50,7 @@ export default function Edit(props) {
     };
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await updateDoc(doc(db, collectionName, item.id), updatedEntry);
+
     Alert.alert(
       "Save Changes",
       "Are you sure you want to save these changes?",
@@ -69,7 +70,8 @@ export default function Edit(props) {
               important: isImportant,
             };
             await updateDoc(doc(db, 'Activities', item.id), updatedEntry);
-            navigation.navigate(itemType === 'activity' ? 'Activities' : 'Diet');
+            const newFlag=flag + 1;
+            navigation.navigate(itemType === 'activity' ? 'Activities' : 'Diet', {newFlag});
           }
         }
       ]
@@ -91,7 +93,8 @@ export default function Edit(props) {
           onPress: async () => {
             const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
             await deleteDoc(doc(db, collectionName, item.id));
-            navigation.navigate(itemType === 'activity' ? 'Activities' : 'Diet');
+            const newFlag=flag + 1;
+            navigation.navigate(itemType === 'activity' ? 'Activities' : 'Diet', {newFlag});
           }
         }
       ]
