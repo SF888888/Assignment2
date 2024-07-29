@@ -25,7 +25,7 @@ export default function Diet(props) {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, theme]);
 
   useEffect(() => {
     const fetchDietEntries = async () => {

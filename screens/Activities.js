@@ -31,7 +31,7 @@ export default function Activities(props) {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, theme]);
 
   useEffect(() => {
     const fetchActivities = async () => {
