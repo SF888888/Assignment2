@@ -50,22 +50,52 @@ export default function Edit(props) {
     };
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await updateDoc(doc(db, collectionName, item.id), updatedEntry);
-    Alert.alert('Are you sure you want to save these changes?');
-    if (itemType === 'activity') {
-      navigation.navigate('Activities', { updatedEntry });
-    } else {
-      navigation.navigate('Diet', { updatedEntry });
-    }
+    Alert.alert(
+      "Save Changes",
+      "Are you sure you want to save these changes?",
+      [
+        {
+          text: "No",
+          onPress: () => alert("Changes not saved"),
+          style: "cancel"
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            const updatedEntry = {
+              type: activityType,
+              duration: parseInt(duration, 10),
+              date: date.toISOString(),
+              important: isImportant,
+            };
+            await updateDoc(doc(db, 'Activities', item.id), updatedEntry);
+            navigation.navigate(itemType === 'activity' ? 'Activities' : 'Diet');
+          }
+        }
+      ]
+    );
   };
 
   const handleDelete = async () => {
-    const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
-    await deleteDoc(doc(db, collectionName, item.id));
-    if (itemType === 'activity') {
-      navigation.navigate('Activities', { updatedEntry });
-    } else {
-      navigation.navigate('Diet', { updatedEntry });
-    }
+    Alert.alert(
+      "Delete",
+      "Are you sure you want to delete this?",
+      [
+        {
+          text: "No",
+          onPress: () => alert("Not deleted"),
+          style: "cancel"
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
+            await deleteDoc(doc(db, collectionName, item.id));
+            navigation.navigate(itemType === 'activity' ? 'Activities' : 'Diet');
+          }
+        }
+      ]
+    );
   };
 
   return (
