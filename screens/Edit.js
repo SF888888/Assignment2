@@ -120,7 +120,7 @@ export default function Edit(props) {
         setValue={setActivityType}
         setItems={setItems}
         placeholder="Select an activity type"
-        containerStyle={styles.dropdown}
+        containerStyle={[styles.dropdown, { zIndex: 9999 }]}
         //defaultValue={activityType}
         onChangeItem={item => setActivityType(item.value)}
         />
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   deleteButton: {
-    zIndex: 9999,
+    
     position: 'absolute',
     top: 20,
     right: 20,

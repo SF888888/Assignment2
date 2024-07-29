@@ -26,21 +26,21 @@ function MainTabs() {
     }}>
       <Tab.Screen name="Activities" component={Activities} 
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <FontAwesome name="user" size={size} color={theme.buttonBackground} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <FontAwesome name="user" size={size} color={focused ? theme.buttonBackground:theme.background} />
         ),
       }}
       />
       <Tab.Screen name="Diet" component={Diet} 
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <FontAwesome name="spoon" size={size} color={theme.buttonBackground} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <FontAwesome name="spoon" size={size} color={focused ? theme.buttonBackground:theme.background} />
         ),
       }}/>
       <Tab.Screen name="Settings" component={Settings} 
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <FontAwesome name="gear" size={size} color={theme.buttonBackground} />
+        tabBarIcon: ({ color, size, focused }) => (
+          <FontAwesome name="gear" size={size} color={focused ? theme.buttonBackground:theme.background} />
         ),
       }}/>
       

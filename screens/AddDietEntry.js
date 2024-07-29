@@ -36,7 +36,7 @@ export default function AddADietEntry() {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Description</Text>
       <TextInput value={description} onChangeText={setDescription} style={styles.input}/>
       <Text>Calories</Text>
