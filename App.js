@@ -17,12 +17,32 @@ const Tab = createBottomTabNavigator();
 
 
 function MainTabs() {
+  const { theme } = useContext(ThemeContext);
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+    screenOptions={{
+      tabBarActiveTintColor: theme.buttonBackground, 
+      
+    }}>
       <Tab.Screen name="Activities" component={Activities} 
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="user" size={size} color={theme.buttonBackground} />
+        ),
+      }}
       />
-      <Tab.Screen name="Diet" component={Diet} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Diet" component={Diet} 
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="spoon" size={size} color={theme.buttonBackground} />
+        ),
+      }}/>
+      <Tab.Screen name="Settings" component={Settings} 
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="gear" size={size} color={theme.buttonBackground} />
+        ),
+      }}/>
       
     </Tab.Navigator>
   );
@@ -44,9 +64,9 @@ function AppNavigator() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainTabs} />
-        <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
-        <Stack.Screen name="AddADietEntry" component={AddDietEntry} />
+        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }}/>
+        <Stack.Screen name="Add An Activity" component={AddAnActivity} />
+        <Stack.Screen name="Add A Diet" component={AddDietEntry} />
         <Stack.Screen name="Edit" component={Edit} />
       </Stack.Navigator>
     </NavigationContainer>

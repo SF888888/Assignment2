@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useLayoutEffect } from 'react';
 import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -33,7 +33,15 @@ export default function Edit(props) {
     { label: 'Cycling', value: 'Cycling' },
     { label: 'Hiking', value: 'Hiking' },
   ]);
-  
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={handleDelete}>
+          <FontAwesome name="trash" size={20} color="black" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   const handleSave = async () => {
     if ((!activityType && !description) || (!duration && !calories) ) {
       
@@ -103,20 +111,18 @@ export default function Edit(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-        <FontAwesome name = "trash" size={24} color="black" />
-      </TouchableOpacity>
       <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
+        
         value={activityType}
         items={items}
         setValue={setActivityType}
         setItems={setItems}
         placeholder="Select an activity type"
         containerStyle={styles.dropdown}
-          defaultValue={activityType}
-          onChangeItem={item => setActivityType(item.value)}
+        //defaultValue={activityType}
+        onChangeItem={item => setActivityType(item.value)}
         />
       ) : (
         <TextInput value={description} onChangeText={setDescription} />

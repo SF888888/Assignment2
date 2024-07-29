@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { View} from 'react-native';
+import React, { useEffect, useState, useContext, useLayoutEffect  } from 'react';
+import { View, TouchableOpacity} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ItemsList from '../components/ItemsList';
 import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Activities(props) {
+  const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const [activities, setActivities] = useState([]);
   const [flag, setFlag] = useState(0);
@@ -20,6 +22,16 @@ export default function Activities(props) {
   /*const changeFlag = () => {
     setFlag(flag + 1);
   };*/
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity title="Add Activity" onPress={() => navigation.navigate("Add An Activity", {flag})} 
+        style={{ paddingRight: 10 }}>
+          <FontAwesome name="plus" size={20} color={theme.buttonBackground} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -33,6 +45,7 @@ export default function Activities(props) {
     fetchActivities();
   }, [flag]);
 
+  
   useEffect(() => {
     if(newFlag){
       setFlag(flag + 1);
@@ -41,7 +54,6 @@ export default function Activities(props) {
 
   return (
     <View>
-      <Button title="Add Activity" onPress={() => navigation.navigate('AddAnActivity', {flag})} />
       <ItemsList data={activities} itemType="activity" navigation={navigation} flag = {flag}/>
     </View>
   );
