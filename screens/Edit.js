@@ -10,8 +10,8 @@ import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Edit() {
-  const navigation = useNavigation();
+export default function Edit(props) {
+  //const navigation = useNavigation();
   const route = useRoute();
   const { item, itemType } = route.params;
   const [activityType, setActivityType] = useState(item.type || '');
@@ -20,12 +20,23 @@ export default function Edit() {
   const [calories, setCalories] = useState(item.calories?.toString() || '');
   const [date, setDate] = useState(new Date(item.date));
   const [showDatePicker, setShowDatePicker] = useState(false);
-
+  const { navigation } = props;
   const { theme } = useContext(ThemeContext);
   const [isImportant, setIsImportant] = useState(false);
 
+  const [items, setItems] = useState([
+    { label: 'Walking', value: 'Walking' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Weights', value: 'Weights' },
+    { label: 'Yoga', value: 'Yoga' },
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Hiking', value: 'Hiking' },
+  ]);
+  
   const handleSave = async () => {
-    if ((!activityType && !description) || (!duration && !calories) || isNaN(duration) || isNaN(calories)) {
+    if ((!activityType && !description) || (!duration && !calories) ) {
+      
       Alert.alert('Invalid input', 'Please enter valid data.');
       return;
     }
@@ -40,32 +51,37 @@ export default function Edit() {
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await updateDoc(doc(db, collectionName, item.id), updatedEntry);
     Alert.alert('Are you sure you want to save these changes?');
-    navigation.navigate('ItemsList');
+    if (itemType === 'activity') {
+      navigation.navigate('Activities', { updatedEntry });
+    } else {
+      navigation.navigate('Diet', { updatedEntry });
+    }
   };
 
   const handleDelete = async () => {
     const collectionName = itemType === 'activity' ? 'Activities' : 'Diet';
     await deleteDoc(doc(db, collectionName, item.id));
-    navigation.navigate('ItemsList');
+    if (itemType === 'activity') {
+      navigation.navigate('Activities', { updatedEntry });
+    } else {
+      navigation.navigate('Diet', { updatedEntry });
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Button style={styles.deleteButton} onPress={handleDelete}>
-        <FontAwesome name = "trash" size={24} color="white" />
-      </Button>
+      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+        <FontAwesome name = "trash" size={24} color="black" />
+      </TouchableOpacity>
       <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
-          items={[
-            { label: 'Walking', value: 'Walking' },
-            { label: 'Running', value: 'Running' },
-            { label: 'Swimming', value: 'Swimming' },
-            { label: 'Weights', value: 'Weights' },
-            { label: 'Yoga', value: 'Yoga' },
-            { label: 'Cycling', value: 'Cycling' },
-            { label: 'Hiking', value: 'Hiking' },
-          ]}
+        value={activityType}
+        items={items}
+        setValue={setActivityType}
+        setItems={setItems}
+        placeholder="Select an activity type"
+        containerStyle={styles.dropdown}
           defaultValue={activityType}
           onChangeItem={item => setActivityType(item.value)}
         />
@@ -89,7 +105,6 @@ export default function Edit() {
       )}
       <View>
         <Button title="Save" onPress={handleSave} />
-        <Button title="Delete" onPress={handleDelete} />
         <Button title="Cancel" onPress={() => navigation.goBack()} />
       </View>
       <View style={styles.checkbox}>
@@ -106,11 +121,13 @@ export default function Edit() {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    flex: 1,
   },
   checkbox: {
     margin: 8,
   },
   deleteButton: {
+    zIndex: 9999,
     position: 'absolute',
     top: 20,
     right: 20,
