@@ -111,7 +111,7 @@ export default function Edit(props) {
 
   return (
     <View style={styles.container}>
-      <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
         
@@ -127,9 +127,9 @@ export default function Edit(props) {
       ) : (
         <TextInput value={description} onChangeText={setDescription} />
       )}
-      <Text>{item.type ? 'Duration' : 'Calories'}</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>{item.type ? 'Duration' : 'Calories'}</Text>
       <TextInput value={item.type ? duration : calories} onChangeText={item.type ? setDuration : setCalories} keyboardType="numeric" />
-      <Text>Date</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Date</Text>
       <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} />
       {showDatePicker && (
         <DateTimePicker
@@ -142,16 +142,16 @@ export default function Edit(props) {
           }}
         />
       )}
-      <View>
-        <Button title="Save" onPress={handleSave} />
-        <Button title="Cancel" onPress={() => navigation.goBack()} />
-      </View>
       <View style={styles.checkbox}>
         <Checkbox style={styles.checkbox}
           value={isImportant}
           onValueChange={setIsImportant}
         />
         <Text style={styles.checkboxLabel}>This item is marked special, select the checkbox if you would like to approve it</Text>
+      </View>
+      <View>
+        <Button title="Save" onPress={handleSave} />
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
       </View>
     </View>
   );
@@ -163,13 +163,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   checkbox: {
-    margin: 8,
+    marginTop: 8,
+    alignContent:'left',
   },
   deleteButton: {
-    
     position: 'absolute',
     top: 20,
     right: 20,
+  },
+  label: {
+    paddingTop: 12, 
   },
   checkboxLabel: {
     marginLeft: 8,
