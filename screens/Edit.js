@@ -22,7 +22,7 @@ export default function Edit(props) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { navigation } = props;
   const { theme } = useContext(ThemeContext);
-  const [isImportant, setIsImportant] = useState(item.important || false);
+  const [isImportant, setIsImportant] = useState(false);
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
     { label: 'Walking', value: 'Walking' },
@@ -111,26 +111,27 @@ export default function Edit(props) {
 
   return (
     <View style={styles.container}>
-      <Text>{item.type ? 'Activity Type' : 'Description'}</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>{item.type ? 'Activity Type' : 'Description'}</Text>
       {item.type ? (
         <DropDownPicker
         open={open}
+        setOpen={setOpen}
         value={activityType}
         items={items}
-        setOpen={setOpen}
         setValue={setActivityType}
         setItems={setItems}
         placeholder="Select an activity type"
         containerStyle={[styles.dropdown, { zIndex: 9999 }]}
+        //defaultValue={activityType}
         onChangeItem={item => setActivityType(item.value)}
         />
       ) : (
         <TextInput value={description} onChangeText={setDescription} />
       )}
-      <Text>{item.type ? 'Duration' : 'Calories'}</Text>
-      <TextInput value={item.type ? duration : calories} onChangeText={item.type ? setDuration : setCalories} keyboardType="numeric" />
-      <Text>Date</Text>
-      <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} />
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>{item.type ? 'Duration' : 'Calories'}</Text>
+      <TextInput value={item.type ? duration : calories} onChangeText={item.type ? setDuration : setCalories} keyboardType="numeric" style={styles.input}/>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Date</Text>
+      <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} style={styles.input}/>
       {showDatePicker && (
         <DateTimePicker
           value={date}
@@ -142,10 +143,6 @@ export default function Edit(props) {
           }}
         />
       )}
-      <View>
-        <Button title="Save" onPress={handleSave} />
-        <Button title="Cancel" onPress={() => navigation.goBack()} />
-      </View>
       <View style={styles.checkbox}>
         <Checkbox style={styles.checkbox}
           value={isImportant}
@@ -153,12 +150,33 @@ export default function Edit(props) {
         />
         <Text style={styles.checkboxLabel}>This item is marked special, select the checkbox if you would like to approve it</Text>
       </View>
+      <View>
+        <Button title="Save" onPress={handleSave} />
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
+      </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
-	dropdown: {
-    marginBottom: 16,
+  container: {
+    padding: 20,
+    flex: 1,
+  },
+  checkbox: {
+    marginTop: 8,
+    alignContent:'left',
+  },
+  deleteButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  },
+  label: {
+    paddingTop: 12, 
+  },
+  checkboxLabel: {
+    marginLeft: 8,
   },
   input: {
     borderWidth: 1,
@@ -166,20 +184,6 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
   },
-  container: {
-    padding: 20,
-    flex: 1,
-    minHeight: 100,
-  },
-  checkbox: {
-    margin: 8,
-  },
-  deleteButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-  },
-  checkboxLabel: {
-    marginLeft: 8,
-  },
 });
+
+
