@@ -22,7 +22,7 @@ export default function Edit(props) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { navigation } = props;
   const { theme } = useContext(ThemeContext);
-  const [isImportant, setIsImportant] = useState(false);
+  const [isImportant, setIsImportant] = useState(item.important || false);
 
   const [items, setItems] = useState([
     { label: 'Walking', value: 'Walking' },
