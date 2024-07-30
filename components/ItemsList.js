@@ -16,7 +16,7 @@ export default function ItemsList({ data, itemType, navigation, flag }) {
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.itemContainer} onPress={() => handlePress(item)}>
       <View>
-      <Text style={[{ color: theme.text, fontSize: theme.fontSize }]}>{item.type || item.description}</Text>
+      <Text style={[{size: 20, color: theme.text, fontSize: theme.fontSize }]}>{item.type || item.description}</Text>
       <Text style={styles.itemText}>{item.duration ? `${item.duration} min` : `${item.calories} kcal`}</Text>
       <Text style={styles.itemText}>{new Date(item.date).toLocaleDateString()}</Text>
       </View>

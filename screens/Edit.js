@@ -128,9 +128,9 @@ export default function Edit(props) {
         <TextInput value={description} onChangeText={setDescription} />
       )}
       <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>{item.type ? 'Duration' : 'Calories'}</Text>
-      <TextInput value={item.type ? duration : calories} onChangeText={item.type ? setDuration : setCalories} keyboardType="numeric" />
+      <TextInput value={item.type ? duration : calories} onChangeText={item.type ? setDuration : setCalories} keyboardType="numeric" style={styles.input}/>
       <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Date</Text>
-      <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} />
+      <TextInput value={date.toLocaleDateString()} onFocus={() => setShowDatePicker(true)} style={styles.input}/>
       {showDatePicker && (
         <DateTimePicker
           value={date}
@@ -176,6 +176,12 @@ const styles = StyleSheet.create({
   },
   checkboxLabel: {
     marginLeft: 8,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 8,
+    marginBottom: 16,
   },
 });
 
