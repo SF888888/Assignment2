@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';
+import ThemeContext from '../contexts/ThemeContext';
 
 const Button = ({ title, onPress, style, textStyle }) => {
+  const { theme } = useContext(ThemeContext);
+  
   return (
-    <Pressable style={[styles.button, style]} onPress={onPress}>
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+    <Pressable style={[styles.button, style, { backgroundColor: theme.buttonBackground }]} onPress={onPress}>
+      <Text style={[styles.text, textStyle, { color: theme.buttonText }]}>{title}</Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#6200ee',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 5,
+    marginTop: 15,
   },
   text: {
-    color: '#ffffff',
     fontSize: 16,
   },
 });

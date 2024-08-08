@@ -8,18 +8,42 @@ import AddAnActivity from './screens/AddAnActivity';
 import AddDietEntry from './screens/AddDietEntry';
 import Edit from './screens/Edit';
 import Settings from './screens/Settings';
-import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
-import Button from '../components/Button';
+import ThemeContext,{ ThemeProvider } from './contexts/ThemeContext';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 function MainTabs() {
+  const { theme } = useContext(ThemeContext);
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Activities" component={Activities} />
-      <Tab.Screen name="Diet" component={Diet} />
-      <Tab.Screen name="Settings" component={Settings} />
+    <Tab.Navigator
+    screenOptions={{
+      tabBarActiveTintColor: theme.buttonBackground, 
+      
+    }}>
+      <Tab.Screen name="Activities" component={Activities} 
+      options={{
+        tabBarIcon: ({ color, size, focused }) => (
+          <FontAwesome name="user" size={size} color={focused ? theme.buttonBackground:theme.background} />
+        ),
+      }}
+      />
+      <Tab.Screen name="Diet" component={Diet} 
+      options={{
+        tabBarIcon: ({ color, size, focused }) => (
+          <FontAwesome name="spoon" size={size} color={focused ? theme.buttonBackground:theme.background} />
+        ),
+      }}/>
+      <Tab.Screen name="Settings" component={Settings} 
+      options={{
+        tabBarIcon: ({ color, size, focused }) => (
+          <FontAwesome name="gear" size={size} color={focused ? theme.buttonBackground:theme.background} />
+        ),
+      }}/>
+      
     </Tab.Navigator>
   );
 }
@@ -40,10 +64,10 @@ function AppNavigator() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainTabs} />
-        <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
-        <Stack.Screen name="AddADietEntry" component={AddDietEntry} />
-        <Stack.Screen name="EditEntry" component={Edit} />
+        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }}/>
+        <Stack.Screen name="Add An Activity" component={AddAnActivity} />
+        <Stack.Screen name="Add A Diet" component={AddDietEntry} />
+        <Stack.Screen name="Edit" component={Edit} />
       </Stack.Navigator>
     </NavigationContainer>
   );

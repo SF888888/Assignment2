@@ -1,20 +1,24 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebaseSetup';
 import ThemeContext from '../contexts/ThemeContext';
 import Button from '../components/Button';
 
-export default function AddAnActivity() {
+export default function AddAnActivity(props) {
+  const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const [activityType, setActivityType] = useState(null);
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const { theme } = useContext(ThemeContext);
+  const route = useRoute();
+  const flag = route.params.flag;
+  console.log(route.params);
+  // const { theme } = useContext(ThemeContext);
 
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
@@ -41,12 +45,13 @@ export default function AddAnActivity() {
     };
 
     await addDoc(collection(db, 'Activities'), activity);
-    navigation.navigate('Activities');
+    const newFlag = flag + 1;
+    navigation.navigate('Activities', {newFlag});
   };
 
   return (
     <View style={styles.container}>
-      <Text>Activity Type</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Activity Type</Text>
       <DropDownPicker
         open={open}
         value={activityType}
@@ -57,14 +62,14 @@ export default function AddAnActivity() {
         placeholder="Select an activity type"
         containerStyle={styles.dropdown}
       />
-      <Text>Duration</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Duration</Text>
       <TextInput
         value={duration}
         onChangeText={setDuration}
         keyboardType="numeric"
         style={styles.input}
       />
-      <Text>Date</Text>
+      <Text style={[styles.label, { color: theme.text, fontSize: theme.fontSize }]}>Date</Text>
       <TextInput
         value={date.toLocaleDateString()}
         onFocus={() => setShowDatePicker(true)}
@@ -95,6 +100,9 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginBottom: 16,
+  },
+  label: {
+    paddingBottom: 12, 
   },
   input: {
     borderWidth: 1,
